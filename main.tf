@@ -144,10 +144,10 @@ resource "local_file" "faah" {
 }
 
 #-----------S3------------
-terraform {
-  backend "s3" {
-    bucket         = "your-unique-terraform-state-bucket"
-    key            = "dev/terraform.tfstate"
-    region         = "us-west-2"
-  }
-}
+#terraform {
+#  backend "s3" {
+#    bucket         = "your-unique-terraform-state-bucket"
+#    key            = "dev/terraform.tfstate"
+#    region         = "us-west-2"
+#  }
+#}
