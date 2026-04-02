@@ -39,7 +39,7 @@ resource "aws_instance" "AB-lab-instance" {
 #-----------VPC-------------
 resource "aws_vpc" "main_vpc" {
   cidr_block = "10.0.0.0/16"
-  tags = {
+   tags = {
     Name = "MY-VPC-1001"
   }
 }
@@ -58,7 +58,7 @@ resource "aws_subnet" "private_subnet" {
   tags = {
     Name = "private-Subnet-1001"
   }
-}
+ }
 # 3 : create IGW
 resource "aws_internet_gateway" "myIgw" {
   vpc_id = aws_vpc.main_vpc.id
@@ -107,7 +107,7 @@ resource "aws_security_group" "TF_SG" {
     to_port          = 22
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
+      ipv6_cidr_blocks = ["::/0"]
   }
 
   egress {
@@ -133,13 +133,13 @@ resource "tls_private_key" "rsa" {
 
 resource "aws_key_pair" "terraform-key" {
   key_name   = "terraform-key"
-  public_key = tls_private_key.rsa.public_key_openssh
+  public_key = tls_private_key.rsa.public_key_openssh 
 }
 
 
 
 resource "local_file" "faah" {
-  content  = tls_private_key.rsa.private_key_pem
+  content  = tls_private_key.rsa.private_key_openssh
   filename = "keyfile"
 }
 
@@ -166,5 +166,7 @@ terraform {
     region  = "us-west-2"
     encrypt = true
     # dynamodb_table = "terraform-lock" # Optional: for state locking
-  }
-}
+   }
+ 
+
+ }
