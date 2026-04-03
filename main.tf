@@ -53,9 +53,10 @@ resource "aws_instance" "app_server" {
               apt-get install -y docker.io
               systemctl start docker
               usermod -aG docker ubuntu
+              docker network create net1
 
               # Run the Backend first, pointing to the DB Instance IP
-              docker run -d --name backend \
+              docker run -d --network net1 --name backend \
                 -e DB_HOST=${aws_instance.db_server.private_ip} \
                 -e DB_USER=postgres \
                 -e DB_PASSWORD=example \
@@ -63,7 +64,7 @@ resource "aws_instance" "app_server" {
                 tahirhassan01/upadted-backend-color:latest
 
               # Run the Frontend
-              docker run -d --name frontend -p 80:80 \
+              docker run -d --network net1 --name frontend -p 80:80 \
                 tahirhassan01/frontend-img:latest
               EOF
 
