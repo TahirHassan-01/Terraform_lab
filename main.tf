@@ -32,7 +32,7 @@ resource "aws_instance" "AB-lab-instance" {
   }
 }
 
-#----instance web-----
+#----instance web //-----
 
 resource "aws_instance" "app_server" {
   ami           = data.aws_ami.ubuntu.id
